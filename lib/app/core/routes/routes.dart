@@ -11,8 +11,10 @@ final GoRouter route = GoRouter(
       builder: (BuildContext context, state) => const InitialPage(),
     ),
     GoRoute(
-      path: '/login',
-      builder: (BuildContext context, state) => LoginPage(),
+      path: '/login/:isRegister',
+      builder: (BuildContext context, state) {
+        return LoginPage(isRegister: state.params['isRegister']! == 'true');
+      },
     ),
     GoRoute(
       path: '/home',
