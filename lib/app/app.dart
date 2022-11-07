@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hackathon_github_app/app/core/routes/routes.dart';
+import 'package:hackathon_github_app/app/features/login/design/states/states.dart';
+import 'package:provider/provider.dart';
 
 class Root extends StatelessWidget {
   const Root({super.key});
@@ -15,12 +17,17 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp.router(
-      title: 'Hackathon Github App',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (context) => AuthProvider()),
+      ],
+      child: MaterialApp.router(
+        title: 'Hackathon Github App',
+        theme: ThemeData(
+          primarySwatch: Colors.blue,
+        ),
+        routerConfig: route,
       ),
-      routerConfig: route,
     );
   }
 }

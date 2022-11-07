@@ -1,6 +1,6 @@
 part of 'core_widgets.dart';
 
-class Input extends StatelessWidget {
+class Input extends StatefulWidget {
   const Input({
     super.key,
     this.maxLines = 1,
@@ -24,24 +24,30 @@ class Input extends StatelessWidget {
   final bool? obscureText;
   final TextInputType? keyboardType;
   final String? Function(String?)? onChanged;
+
+  @override
+  State<Input> createState() => _InputState();
+}
+
+class _InputState extends State<Input> {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-      keyboardType: keyboardType,
-      controller: controller,
+      keyboardType: widget.keyboardType,
+      controller: widget.controller,
       decoration: InputDecoration(
-        hintText: hintText,
+        hintText: widget.hintText,
         fillColor: Colors.grey[100],
         filled: true,
-        labelText: label,
-        labelStyle: const TextStyle(color: Colors.blue),
+        labelText: widget.label,
+        labelStyle: const TextStyle(color: Colors.grey),
         contentPadding: const EdgeInsets.all(15),
         errorBorder: OutlineInputBorder(
           borderSide: const BorderSide(color: Colors.red),
           borderRadius: BorderRadius.circular(5),
         ),
         enabledBorder: OutlineInputBorder(
-          borderSide: const BorderSide(color: Colors.blue),
+          borderSide: const BorderSide(color: Colors.grey),
           borderRadius: BorderRadius.circular(5),
         ),
         focusedBorder: OutlineInputBorder(
@@ -52,15 +58,15 @@ class Input extends StatelessWidget {
           borderSide: const BorderSide(color: Colors.red),
           borderRadius: BorderRadius.circular(5),
         ),
-        suffixIcon: suffixIcon,
-        prefixIcon: prefixIcon == null
+        suffixIcon: widget.suffixIcon,
+        prefixIcon: widget.prefixIcon == null
             ? null
-            : Align(widthFactor: 1, heightFactor: 1, child: prefixIcon),
+            : Align(widthFactor: 1, heightFactor: 1, child: widget.prefixIcon),
       ),
-      validator: (String? value) => validator!(value),
-      maxLines: maxLines,
-      obscureText: obscureText!,
-      onChanged: onChanged,
+      validator: (String? value) => widget.validator!(value),
+      maxLines: widget.maxLines,
+      obscureText: widget.obscureText!,
+      onChanged: widget.onChanged,
     );
   }
 }

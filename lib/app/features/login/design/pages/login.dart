@@ -1,44 +1,27 @@
 import 'package:flutter/material.dart';
-import 'package:hackathon_github_app/app/core/core_design/core_widgets/core_widgets.dart';
+import 'package:hackathon_github_app/app/features/login/design/states/states.dart';
+import 'package:hackathon_github_app/app/features/login/design/widgets/widgets.dart';
+import 'package:provider/provider.dart';
 
 class LoginPage extends StatelessWidget {
-  LoginPage({super.key});
+  const LoginPage({super.key});
 
-  final _formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
+    final authProvider = context.watch<AuthProvider>();
     return Scaffold(
+      appBar: AppBar(
+        title: const Text('Iniciar sesión'),
+      ),
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(15),
-          child: Column(
+          child: PageView(
+            controller: authProvider.pageController,
+            physics: const NeverScrollableScrollPhysics(),
             children: [
-              Form(
-                key: _formKey,
-                child: Column(
-                  children: [
-                    const Padding(
-                      padding: EdgeInsets.symmetric(vertical: 10),
-                      child: Input(
-                        label: 'Nombre',
-                        prefixIcon: Icon(Icons.person),
-                      ),
-                    ),
-                    const Padding(
-                      padding: EdgeInsets.symmetric(vertical: 10),
-                      child: Input(
-                        label: 'Teléfono',
-                        prefixIcon: Icon(Icons.phone),
-                      ),
-                    ),
-                    const SizedBox(height: 10),
-                    PrimaryButton(
-                      onPressed: (context) {},
-                      text: 'Iniciar sesión',
-                    ),
-                  ],
-                ),
-              ),
+              PhoneForm(),
+              SmsCodeValidation(),
             ],
           ),
         ),
