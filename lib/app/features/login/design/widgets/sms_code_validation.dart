@@ -1,7 +1,8 @@
 part of 'widgets.dart';
 
 class SmsCodeValidation extends StatelessWidget {
-  SmsCodeValidation({super.key});
+  SmsCodeValidation({super.key, this.isRegister = false});
+  final bool isRegister;
   final _formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
@@ -27,8 +28,9 @@ class SmsCodeValidation extends StatelessWidget {
           ),
           const Spacer(),
           PrimaryButton(
-            onPressed: (context) =>
-                context.read<AuthProvider>().authSmsCode(context),
+            onPressed: (context) => context
+                .read<AuthProvider>()
+                .authSmsCode(context, isRegister: isRegister),
             text: 'Validar',
           ),
         ],
